@@ -5,7 +5,7 @@
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-243-54-6.compute-1.amazonaws.com:5432/ddgbl2c62duq17?useSSL=true</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-243-54-6.compute-1.amazonaws.com:5432/ddgbl2c62duq17?sslmode=require</property>
     <property name="hibernate.connection.requireSSL">true</property>
     <property name="hibernate.connection.username">dxlwszbapmtxtm</property>
     <property name="hibernate.connection.password">4347e214be6cbd787337b6b7ce5bb971832335adcea22b9e22d89df238f09a0a</property>
