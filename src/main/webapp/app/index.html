@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<!-- Mirrored from bucketadmin.themebucket.net/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Mar 2016 15:38:52 GMT -->
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SIGESMED</title>
+    <link rel="shortcut icon" href="../recursos/img/icon.png">
+
+    <!--Core CSS -->
+    <link href="../recursos/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../recursos/css/font-awesome.css" rel="stylesheet" />
+    
+    <!--Gritter -->
+    <link href="../recursos/plugins/gritter/css/jquery.gritter.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="../recursos/css/style.css" rel="stylesheet">
+    <link href="../recursos/css/style-responsive.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+<section id="container" >
+<!--header start-->
+<header class="header fixed-top clearfix">
+<!--logo start-->
+<div class="lado-izq">
+	<div class="brand">
+	    <a href class="logo">
+	        <img src="../recursos/img/logo.png" alt="">
+	    </a>
+	    <div class="sidebar-toggle-box">
+	        <div class="fa fa-bars"></div>
+	    </div>
+	</div>
+	<div class="nav menu-principal" id="top_menu">
+	    <!--  notification start -->
+	    <ul class="nav top-menu">
+	        <!-- settings start -->
+	        <li class="dropdown" ng-repeat="mp in menuPrincipal">
+	            <a href ng-click="elegirMenu(mp)" title="{{mp.nombre}}">
+	                <i class="fa fa-tasks"></i>
+	            </a>
+	        </li>
+	        <!-- notification dropdown end -->
+	    </ul>
+	    <!--  notification end -->
+	</div>	
+</div>
+<div class="lado-cen">
+    <div class="nombre-institucion" >
+            <span class="widget-h nombre" >{{usuMaster.organizacion.nombre}}</span>
+    </div>
+</div>
+<!--logo end-->
+<div class="lado-der">
+    <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+            <!-- inbox dropdown start-->
+            <mensajes mensajes="mensajes"></mensajes>
+            <!-- inbox dropdown end -->
+            <notificaciones notificaciones="notificaciones"></notificaciones>
+        </ul>
+        <!--  notification end -->
+    </div>
+    <div class="top-nav clearfix">
+
+        <ul class="nav pull-right top-menu">
+
+            <li class="dropdown" style="margin-left:0">
+                <a data-toggle="dropdown" class="dropdown-toggle icon-user" href>
+                    <!--<img alt="" src="../recursos/img/avatar1_small.jpg">-->
+                    <i class="fa fa-user"></i>
+                    <span class="username">Usuario</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu extended logout">
+                    <li><a href><i class=" fa fa-suitcase"></i>Perfil</a></li>
+                    <li><a href><i class="fa fa-cog"></i>Configuracion</a></li>
+                    <li><a href ng-click="cerrarSession()"><i class="fa fa-key" ></i>Cerrar Session</a></li>
+                </ul>
+            </li>
+            <!-- user login dropdown end -->
+            <li>
+                <div class="toggle-right-box">
+                    <div class="fa fa-bars"></div>
+                </div>
+            </li>
+        </ul>
+        <!--search & user info end-->
+    </div>
+</div>
+</header>
+<!--header end-->
+<aside>
+    <div id="sidebar" class="nav-collapse" >
+        <div class="usuario-panel">
+            <div class="pull-left imagen">
+              <img src="../recursos/img/avatar1_small.jpg" class="imagen-usuario img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info" style="padding: 0 0 0 5px;;word-wrap: break-word;">
+              <p>{{usuMaster.nombre}}</p>
+              <p style="word-wrap: break-word;">{{usuMaster.rol}}</p>
+            </div>
+        </div>
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation"><ul class="sidebar-menu" id="nav-accordion">
+            <li class="sub-menu" ng-repeat="m in menu" >
+                <a href ng-click="menuToggle($event,m)" >
+                    <i class="fa fa-laptop"></i>
+                    <span style="width: 175px;">{{m.nombre}}</span>
+                    <i class="fa fa-angle-right "></i>
+                </a>
+                <ul class="sub" >
+                    <li ng-repeat="sm in m.funciones"><a href="#{{sm.clave}}" ng-click="elegirVista(sm)" ng-class="{'select':visNom==sm.nombre}">{{sm.nombre}}</a></li>
+                </ul>
+            </li>
+        </ul></div>
+        
+<!-- sidebar menu end-->
+    </div>
+    
+</aside>
+<!--sidebar end-->
+<!--main content start-->
+<section id="main-content">
+    
+    <section class="wrapper" >
+        <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb" style="text-transform: uppercase;">
+                <li><a href ng-click="inicio()"><i class="fa fa-home"></i>Inicio</a></li>
+                <li ng-hide='modNom==""'>{{modNom}}</li>
+                <li ng-hide='subModNom==""'>{{subModNom}}</li>
+                <li class="active" ng-hide='visNom==""'>{{visNom}}</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+        </div>
+        <div ng-view></div>
+        
+    </section>
+</section>
+<!--main content end-->
+<!--right sidebar start-->
+<div class="right-sidebar ">	
+    <noticias noticias="noticias"></noticias>
+    
+    <div class="calendario">
+        <header class="chat-head">Calendario</header>
+    </div>
+    
+    <!--chat start-->
+    <chat></chat>
+    <!--chat end-->
+    
+    
+</div>
+<!--right sidebar end-->
+
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+
+<!-- REQUIRED JS SCRIPTS -->
+    
+    <!-- JQuery -->
+    <script src="../recursos/js/jquery-1.10.2.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../recursos/js/bootstrap.min.js"></script>
+    <!-- Gritter -->
+    <script src="../recursos/plugins/gritter/js/jquery.gritter.js"></script>
+    
+    <!-- Mi JS-->
+    <script src="../recursos/js/mi-script.js"></script>
+    
+    <!-- Angular -->
+    <script src="../recursos/js/angular.min.js"></script>
+    <script src="../recursos/js/angular-route.js"></script>
+    
+    <!-- Mi App -->    
+    <script src="app.js"></script>
+    <script type="text/javascript" src="mis-servicios.js"></script>
+    <script type="text/javascript" src="mis-directivas.js"></script>
+    
+
+
+
+</body>
+</html>
+

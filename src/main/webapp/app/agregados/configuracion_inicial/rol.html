@@ -1,0 +1,200 @@
+<div class="row"><div class="col-lg-12">
+<section class="panel">
+    <header class="panel-heading">
+        <span>ROL</span>
+        <span class="tools pull-right">
+            <button class="btn btn btn-primary btn-sm" ng-click="listarRoles()"><i class="fa fa-rotate-right"></i> Listar</button>
+        </span>
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-striped table-advance table-hover" ng-init="listarRoles()">
+          <thead>
+          <tr>
+              <th>Abreviatura</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th style="text-align: center">Estado</th>
+              <th style="width: 65px">acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in roles">
+                <td class="hidden-phone">{{r.abreviatura}}</td>
+                <td class="hidden-phone">{{r.nombre}}</td>
+                <td class="hidden-phone">{{r.descripcion}}</td>
+                <td style="text-align: center">
+                    <span class="label label-mini" ng-class="{'label-info': r.estado=='A','label-warning': r.estado=='I'}">{{r.estado}}</span>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-click="prepararEditar($index,r)"><i class="fa fa-pencil" ></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="eliminarRol($index,r.rolID,usuMaster.nombre)"><i class="fa fa-trash-o " ></i></button>
+                </td>
+            </tr>
+          </tbody>
+
+        </table>
+        <div align="right" >
+            <button class="btn btn btn-primary " data-toggle="modal" data-target="#modalNuevo"><i class="fa fa-plus" ></i> Agregar</button>
+            <button class="btn btn-danger " ng-click="eliminarRoles()"><i class="fa fa-times" ></i> Eliminar</button>
+        </div>
+
+    </div>
+</section>
+</div></div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">ACTUALIZAR ROL</h4>
+      </div>
+      <div class="modal-body">
+          
+          
+        <div class="form-panel">
+            <div class="form-horizontal style-form" >
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Abreviatura</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="rolSel.abreviatura">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="rolSel.nombre">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Descripción</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="rolSel.descripcion"></textarea>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Estado</label>
+                    <div class="col-sm-10">
+                        <div class="radio" style="display: inline-block">
+                          <label><input type="radio" ng-model="rolSel.estado" ng-value="'A'" >activo</label>
+                        </div>
+                        <div class="radio" style="display: inline-block">
+                          <label><input type="radio" ng-model="rolSel.estado" ng-value="'I'">inactivo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Funciones</label>
+                    <div class="col-sm-10">
+                        <div class="ms-container" id="ms-my_multi_select2">
+                        <div class="ms-selectable">
+                        <ul class="ms-list" tabindex="-1">
+                            <li class="ms-optgroup-container" ng-repeat="sm in subModulosEdi"><ul class="ms-optgroup">
+                                <li class="ms-optgroup-label" style="text-transform: uppercase;font-weight: 600;" ng-hide="sm.ver"><span>{{sm.nombre}} </span></li>
+                                <li class="ms-elem-selectable" ng-repeat="f in sm.funciones" ng-click="seleccionarFuncion2($parent.$index,$index)" ng-hide="f.ver"><span>{{f.nombre}}</span></li>
+                            </ul></li>
+                        </ul>
+                        </div>
+                        <div class="ms-selection">
+                        <ul class="ms-list" tabindex="-1">
+                            <li class="ms-optgroup-container" ng-repeat="sm in subModulosSelEdi"><ul class="ms-optgroup">
+                                <li class="ms-optgroup-label" style="text-transform: uppercase;font-weight: 600;"><span>{{sm.nombre}}</span></li>
+                                <li class="ms-elem-selection" ng-repeat="f in sm.funciones" ng-click="desSeleccionarFuncion2($parent.$index,$index)"><span>{{f.nombre}}</span></li>
+                            </ul></li>
+                        </ul>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="editarRol(usuMaster.nombre)"><i class="fa fa-save" ></i> Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">NUEVO ROL</h4>
+      </div>
+      <div class="modal-body">
+          
+          
+            <div class="form-panel">
+                <div class="form-horizontal style-form" >
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Abreviatura</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevoRol.abreviatura">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevoRol.nombre">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" ng-model="nuevoRol.descripcion"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Estado</label>
+                        <div class="col-sm-10">
+                            <div class="radio" style="display: inline-block">
+                              <label><input type="radio" ng-model="nuevoRol.estado" ng-value="'A'" checked>activo</label>
+                            </div>
+                            <div class="radio" style="display: inline-block">
+                              <label><input type="radio" ng-model="nuevoRol.estado" ng-value="'I'">inactivos</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Funciones</label>
+                        <div class="col-sm-10">
+                            <div class="ms-container" id="ms-my_multi_select2">
+                            <div class="ms-selectable">
+                            <ul class="ms-list" tabindex="-1">
+                                <li class="ms-optgroup-container" ng-repeat="sm in subModulos"><ul class="ms-optgroup">
+                                    <li class="ms-optgroup-label" style="text-transform: uppercase;font-weight: 600;" ng-hide="sm.ver"><span>{{sm.nombre}} </span></li>
+                                    <li class="ms-elem-selectable" ng-repeat="f in sm.funciones" ng-click="seleccionarFuncion($parent.$index,$index)" ng-hide="f.ver"><span>{{f.nombre}}</span></li>
+                                </ul></li>
+                            </ul>
+                            </div>
+                            <div class="ms-selection">
+                            <ul class="ms-list" tabindex="-1">
+                                <li class="ms-optgroup-container" ng-repeat="sm in subModulosSel"><ul class="ms-optgroup">
+                                    <li class="ms-optgroup-label" style="text-transform: uppercase;font-weight: 600;"><span>{{sm.nombre}}</span></li>
+                                    <li class="ms-elem-selection" ng-repeat="f in sm.funciones" ng-click="desSeleccionarFuncion($parent.$index,$index)"><span>{{f.nombre}}</span></li>
+                                </ul></li>
+                            </ul>
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+          
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="agregarRol(usuMaster.nombre)"><i class="fa fa-check" ></i> Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html lang="es" ng-app="conf-inicial">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Geank">
+        <!-- Bootstrap core CSS -->
+        <link href="../../../recursos/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../recursos/css/font-awesome.css" rel="stylesheet" />
+
+
+        <!-- Custom styles for this template -->
+    </head>
+    <body ng-controller="ieCtrl as ctrl">
+        <div class="container">
+            <h3 class="modal-title">Instituciones Educativas</h3>
+            <div class="row">
+                <div class="button-group cols-md-4">
+                    <button type="button" class="btn btn-primary" ng-click="ctrl.newIE()">Agregar</button>
+                    <button type="button" class="btn btn-primary">Editar</button>
+                    <button type="button" class="btn btn-primary">Eliminar</button>
+                </div>
+            </div>
+            <div class="row">Tabla elementos</div>
+        </div>
+        <div>
+            <script type="text/ng-template" id="formIE.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Añadir Institucion Educativa</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="nombre_ie" class="col-md-2">Nombre IE: </label>
+                            <div class="col-md-10"><input type="text" id="nombre_ie" class="form-control" ng-model="nameie"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion_ie" class="col-md-2">Dirección: </label>
+                            <div class="col-md-10"><input type="text" id="direccion_ie" class="form-control" ng-model="addressie"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="departamento_ie" class="col-md-2">Departamento: </label>
+                            <div class="col-md-2">
+                                <select id="departamento_ie" class="form-control" ng-model="departamentie">
+                                    <option value="mo">Moquegua</option>
+                                 </select>
+                            </div>
+                            <label for="provincia_ie" class="col-md-2">Provincia: </label>
+                            <div class="col-md-2">
+                                <select id="provincia_ie" class="form-control" ng-model="provinceie">
+                                    <option value="IL">Ilo</option>
+                                    <option value="MN">Mariscal Nieto</option>
+                                    <option value="SC">Sanchez Cerro</option>
+                                 </select>
+                            </div>
+                            <label for="distrito_ie" class="col-md-2">Distrito: </label>
+                            <div class="col-md-2"><input type="text" id="distrito_ie" class="form-control" ng-model="districtie"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_ie" class="col-md-2">Tipo: </label>
+                            <div class="col-md-2">
+                                <select id="departamento_ie" class="form-control" ng-model="typeie">
+                                    <option value="t1">Tipo 0</option>
+                                    <option value="t2">Tipo 2</option>
+                                    <option value="t3">Tipo 3</option>
+                                 </select>
+                            </div>
+                            <label for="genero_ie" class="col-md-2">Genero: </label>
+                            <div class="col-md-2">
+                                <select id="genero_ie" class="form-control" ng-model="genderie">
+                                    <option value="VA">Varones</option>
+                                    <option value="DA">Damas</option>
+                                    <option value="MIX">Mixto</option>
+                                 </select>
+                            </div>
+                            <label for="ugel_ie" class="col-md-2">UGEL: </label>
+                            <div class="col-md-2">
+                                <select id="ugel_ie" class="form-control" ng-model="ugelie">
+                                    <option value="IL">Ilo</option>
+                                    <option value="MN">Mariscal Nieto</option>
+                                    <option value="SC">Sanchez Cerro</option>
+                                 </select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-foote">
+                    <button class="btn btn-primary" type="button" ng-click="save()">Guardar</button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+                </div>
+            </script>
+
+        </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+        
+        
+        <script src="../../../recursos/js/jquery-1.10.2.min.js"></script>
+        <!-- Gritter -->
+        <script src="../../../recursos/plugins/gritter/js/jquery.gritter.js"></script>
+        <script src="../../../recursos/js/bootstrap.min.js"></script>
+
+        <script src="../../../recursos/js/ui-bootstrap-tpls-1.1.2.js"></script>
+        
+        
+        <script src="js/ie.js"></script>
+        
+        
+    </body>
+</html>

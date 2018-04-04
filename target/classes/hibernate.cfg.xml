@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/sigesmed_bd</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">1234</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    
+    <!--configguracion inicial-->
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.FuncionSistema" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.SubModuloSistema" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.ModuloSistema" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.Organizacion" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.Area" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.OrganizacionRol" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.Rol" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.RolFuncion" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.Usuario" />    
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.TipoOrganizacion" />
+<!--tramite documentario-->
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.TipoTramite" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.RequisitoTramite" />
+    <mapping class="com.dremo.ucsm.gsc.sigesmed.core.entity.RutaTramite" />
+    
+  </session-factory>
+</hibernate-configuration>

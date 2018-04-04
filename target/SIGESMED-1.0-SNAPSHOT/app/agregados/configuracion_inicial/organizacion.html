@@ -1,0 +1,218 @@
+<div class="row"><div class="col-lg-12">
+<section class="panel">
+    <header class="panel-heading">
+        <span>ORGANIZACIONES</span>
+        <span class="tools pull-right">
+            <button class="btn btn btn-primary btn-sm" ng-click="listarOrganizaciones()"><i class="fa fa-rotate-right"></i> Listar</button>
+        </span>
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-striped table-advance table-hover" ng-init="listarOrganizaciones()">
+          <thead>
+          <tr>
+              <th style="width:50px">Codigo</th>
+              <th style="width:10%">Nombre</th>
+              <th style="width:10%">alias</th>
+              <th style="">Descripcion</th>
+              <th style="width:25%">Direccion</th>
+              <th style="width:50px;text-align: center">Estado</th>
+              <th style="width: 65px">acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="o in organizaciones">
+                <td class="hidden-phone">{{o.codigo}}</td>
+                <td class="hidden-phone">{{o.nombre}}</td>
+                <td class="hidden-phone">{{o.alias}}</td>
+                <td class="hidden-phone">{{o.descripcion}}</td>
+                <td class="hidden-phone">{{o.direccion}}</td>
+                <td style="text-align: center">
+                    <span class="label label-mini" ng-class="{'label-info': o.estado=='A','label-warning': o.estado=='I'}">{{o.estado}}</span>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-click="prepararEditar($index,o)"><i class="fa fa-pencil" ></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="eliminarOrganizacion($index,o.organizacionID,usuMaster.nombre)"><i class="fa fa-trash-o " ></i></button>
+                </td>
+            </tr>
+          </tbody>
+
+        </table>
+        <div align="right" >
+            <button class="btn btn btn-primary " data-toggle="modal" data-target="#modalNuevo"><i class="fa fa-plus" ></i> Agregar</button>
+            <button class="btn btn-danger " ng-click="eliminarOrganizaciones()"><i class="fa fa-times" ></i> Eliminar</button>
+        </div>
+
+    </div>
+</section>
+</div></div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">ACTUALIZAR ORGANIZACION</h4>
+      </div>
+      <div class="modal-body">
+          
+          
+        <div class="form-panel">
+            <div class="form-horizontal style-form" >
+                <div class="form-group" >
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo Organizacion</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="organizacionSel.tipoOrganizacionID">
+                            <option ng-repeat="to in tipoOrganizaciones " value="{{to.tipoOrganizacionID}}">{{to.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Codigo</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="organizacionSel.codigo">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="organizacionSel.nombre">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Alias</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="organizacionSel.alias">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Descripcion</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="organizacionSel.descripcion"></textarea>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Direccion</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="organizacionSel.direccion">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 col-sm-2 control-label">Organizacion Padre(opcional)</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="organizacionSel.organizacionPadreID">
+                            <option value="0"></option>
+                            <option ng-repeat="o in organizaciones " value="{{o.organizacionID}}">{{o.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">Estado</label>
+                    <div class="col-sm-10">
+                        <div class="radio" style="display: inline-block">
+                          <label><input type="radio" ng-model="organizacionSel.estado" ng-value="'A'" >activo</label>
+                        </div>
+                        <div class="radio" style="display: inline-block">
+                          <label><input type="radio" ng-model="organizacionSel.estado" ng-value="'I'">inactivo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="editarOrganizacion(usuMaster.nombre)"><i class="fa fa-save" ></i> Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">NUEVA ORGANIZACION</h4>
+      </div>
+      <div class="modal-body">
+          
+          
+            <div class="form-panel">
+                <div class="form-horizontal style-form" >
+                    <div class="form-group" >
+                        <label class="col-sm-2 col-sm-2 control-label">Tipo Organizacion</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="nuevaOrganizacion.tipoOrganizacionID">
+                                <option ng-repeat="to in tipoOrganizaciones " value="{{to.tipoOrganizacionID}}">{{to.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Codigo</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevaOrganizacion.codigo">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevaOrganizacion.nombre">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Alias</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevaOrganizacion.alias">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" ng-model="nuevaOrganizacion.descripcion"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Direccion</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="nuevaOrganizacion.direccion">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 col-sm-2 control-label">Organizacion Padre(opcional)</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="nuevaOrganizacion.organizacionPadreID">
+                                <option value="0"></option>
+                                <option ng-repeat="o in organizaciones " value="{{o.organizacionID}}">{{o.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">Estado</label>
+                        <div class="col-sm-10">
+                            <div class="radio" style="display: inline-block">
+                              <label><input type="radio" ng-model="nuevaOrganizacion.estado" ng-value="'A'" checked>activo</label>
+                            </div>
+                            <div class="radio" style="display: inline-block">
+                              <label><input type="radio" ng-model="nuevaOrganizacion.estado" ng-value="'I'">inactivo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+          
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="agregarOrganizacion(usuMaster.nombre)"><i class="fa fa-check" ></i> Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

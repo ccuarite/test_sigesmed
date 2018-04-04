@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-3" ng-repeat="mp in menuPrincipal">
+        <div class="feed-box text-center">
+            <section class="panel">
+                <a href ng-click="elegirMenu(mp)">
+                <div class="panel-body" >
+                    <img alt="" src="../recursos/img/module.png">
+                    <h5>{{mp.nombre}}</h5>
+                    <p>{{mp.descripcion}}</p>
+                </div>
+                </a>
+            </section>
+        </div>
+    </div>
+</div>
