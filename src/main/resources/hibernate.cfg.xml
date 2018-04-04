@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+
 <hibernate-configuration>
+    <bean class="java.net.URI" id="dbUrl">
+    <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+
+    </bean>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-243-54-6.compute-1.amazonaws.com:5432/ddgbl2c62duq17</property>
-    <property name="hibernate.connection.username">dxlwszbapmtxtm</property>
-    <property name="hibernate.connection.password">4347e214be6cbd787337b6b7ce5bb971832335adcea22b9e22d89df238f09a0a</property>
+    <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
+         <property name="hibernate.connection.url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+         <property name="hibernate.connection.username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+         <property name="hibernate.connection.password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+    </bean>   
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     
