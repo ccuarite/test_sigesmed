@@ -2,8 +2,8 @@
 var app = angular.module("appLogin", ['ngRoute']);
 
 app.constant('urls', {
-    BASE: '/SIGESMED/rest',
-    BASECONTEXTO: '/SIGESMED'
+    BASE: '/rest',
+    BASECONTEXTO: '/'
 });
 app.config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvider) {
         
